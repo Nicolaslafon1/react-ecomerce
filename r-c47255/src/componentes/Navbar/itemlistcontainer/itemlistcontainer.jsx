@@ -5,7 +5,7 @@ const ItemListContainer = ({ propGreeting }) => {
   return (
     <div className="item-list-container">
       <p className="message">{propGreeting}</p>
-    </div>
+    </div> 
   );
 };
 
