@@ -1,20 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import NavBar from './componentes/Navbard/NavBar.jsx'
 
 
-import React from 'react';
-import NavBar from './componentes/Navbar/Navbar/NavBar';
-import ItemListContainer from './componentes/Navbar/itemlistcontainer/itemlistcontainer';
+
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Itemdetailcontainer from './componentes/Itemdetailcontainer/Itemdetailcontainer.jsx';
+import ItemListContainer from './componentes/itemlistcontainer/itemlistcontainer.jsx';
+
+
 
 function App() {
-  return (
-    <div>
-      <NavBar />
-      <ItemListContainer propGreeting="¡Bienvenido a nuestra tienda en línea!" />
-    </div>
-  );
+    
+    return ( 
+        
+        <Router>           
+            <NavBar />
+            <Routes>
+                <Route path='/' element={<ItemListContainer greeting='Bienvenidos a Cbum store' /> } /> 
+                <Route path='/category/:cid' element={<ItemListContainer greeting='Bienvenidos a Cbum store' /> } /> 
+                <Route path='/detail/:pid' element={<Itemdetailcontainer /> } />
+               
+
+                               
+            </Routes>
+        </Router>
+    )
 }
 
-export default App;
+export default App
+
+
+
+
+
+
+
+
+
+
