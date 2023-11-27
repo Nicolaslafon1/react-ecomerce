@@ -9,6 +9,16 @@ import { useParams } from "react-router-dom";
 
 
 
+
+const Loading = () => {
+  return (
+    <h2>Cargando...</h2>
+  )
+}
+
+
+
+
 function ItemListContainer({ greeting = 'saludando por defecto' }) {
   const [ products, setProducts ] = useState([])
   const [ loading, setLoading ]   = useState(true)
@@ -33,21 +43,15 @@ useEffect(()=>{
     }
   }, [cid])
 
-
-  
-  
-  
-  
-  
-  
-  
-  return (
+return (
     <>
         <center>
             {greeting}
         </center>
         <div className="d-flex justify-content-center aling-items-center"> 
-       {   loading ? <h2>Cargando...</h2> 
+       {   loading ? 
+       
+       <Loading/>
             :
             
             <Itemlist products={products}></Itemlist>

@@ -7,9 +7,10 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import { Link, NavLink } from 'react-router-dom';
 import CartIcon from '../CartWidget/CartIcon';
+import CartContainer from '../CartContainer/CartContainer';
 
 function NavBar() {
-    // console.log(children)
+    
     return (
         <>
              <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -26,6 +27,17 @@ function NavBar() {
                         <NavLink className={({isActive})=> isActive ? 'btn btn-outline-primary' : 'btn'} to='/category/Jogger'>
                         Jogger
                         </NavLink>
+
+<NavLink to="/cart" className="btn btn-outline-primary">
+                <CartIcon /> 
+              
+              
+            </NavLink>
+
+                        
+                    
+
+        
                       
                         
             

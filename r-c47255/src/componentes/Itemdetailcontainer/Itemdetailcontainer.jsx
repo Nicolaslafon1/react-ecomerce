@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { mFetch } from "../Helpers/Mfetch";
+import Intercambiabilidad from "../Intercambiabilidad";
+import ItemCounter from "../ItemCounter/ItemCounter";
+import CartContext from "../../contexts/CartContext";
+import ItemDetail from "../itemdetail/itemdetail"
+
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
   const { pid } = useParams();
 
+ 
+
   useEffect(() => {
-    mFetch(Number(pid)).then((data) => {
-      setProduct(data);
-    });
+    setLoading(true);
+    mFetch(Number(pid))
+      .then((data) => {
+        setProduct(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [pid]);
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6">
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="img-fluid"
-          />
-        </div>
-        <div className="col-md-6">
-          <h2>{product.name}</h2>
-          <p className="text-muted">Categoría: {product.category}</p>
-          <h4 className="text-primary">Precio: ${product.price}</h4>
-          <p>{product.description}</p>
-        </div>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <ItemDetail product={product} />
+      )}
+    </>
   );
 };
 
 export default ItemDetailContainer;
+
+
+
+
+
+
+
+  
