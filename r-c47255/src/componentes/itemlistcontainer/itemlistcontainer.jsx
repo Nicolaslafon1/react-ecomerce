@@ -1,47 +1,43 @@
-
 import React from 'react';
-
 import { useEffect, useState } from "react"
-import { mFetch } from '../Helpers/Mfetch';
 import  {Itemlist } from '../Itemlist/Itemlist';
 import { useParams } from "react-router-dom";
-
-
-
-
+import { collection, doc, getDocs, getFirestore, limit, orderBy, query,where } from "firebase/firestore"
 
 const Loading = () => {
-  return (
+return (
     <h2>Cargando...</h2>
-  )
+)
 }
-
-
-
-
 function ItemListContainer({ greeting = 'saludando por defecto' }) {
-  const [ products, setProducts ] = useState([])
-  const [ loading, setLoading ]   = useState(true)
-
-  const { cid } = useParams();
-
   
-useEffect(()=>{
+  
+    const [ products, setProducts ] = useState([])
+    const [ product, setProduct ] = useState({})
+    const [ loading, setLoading ]   = useState(true)
+    const { cid } = useParams()
 
+    useEffect(()=>{
+    const dbFirestore     = getFirestore()
+    const queryCollection = collection(dbFirestore, 'products') 
+    
     if (cid) {
-        mFetch() //llamando a mi mfetch -> 
-      .then(resultado => setProducts(resultado.filter(product => product.category === cid)))
-      .catch(error => console.log(error))
-      .finally(()=> setLoading(false))
         
-    } else {
-        mFetch() //llamando a mi mfetch -> 
-        .then(resultado => setProducts(resultado))
-        .catch(error => console.log(error))
-        .finally(()=> setLoading(false))
+    const queryFilter     = query(queryCollection, where('category', '==', cid))
+            
         
+    getDocs(queryFilter)
+    .then(res =>{ setProducts( res.docs.map(product => ({ id: product.id , ...product.data() }) ) )})
+    .catch(err => console.log(err)) 
+    .finally(() => setLoading(false))
+        
+    }else{ 
+        getDocs(queryCollection)
+        .then(res => setProducts( res.docs.map(product => ({ id: product.id , ...product.data() }) ) ))
+        .catch(err => console.log(err)) 
+        .finally(() => setLoading(false))
     }
-  }, [cid])
+}, [cid]) 
 
 return (
     <>
@@ -61,8 +57,4 @@ return (
 )
 }
 export default ItemListContainer;
-
-
-
-
 

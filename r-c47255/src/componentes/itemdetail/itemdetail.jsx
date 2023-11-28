@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams} from "react-router-dom";
-import { mFetch } from "../Helpers/Mfetch";
-import Intercambiabilidad from "../Intercambiabilidad";
-import { Link} from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import ItemCounter from "../ItemCounter/ItemCounter";
 import CartContext from "../../contexts/CartContext";
-
-
 
 const ItemDetail = ({ product }) => {
   const [isCount, setIsCount] = useState(true);
@@ -33,9 +28,8 @@ const ItemDetail = ({ product }) => {
           {isCount ? (
             <ItemCounter initial={1} stock={5} onAdd={onAdd} />
           ) : (
-            <div>
-              {}
-              <Link className="btn btn-outline-dark" to="/">
+            <div className="d-flex">
+              <Link className="btn btn-outline-dark me-2" to="/">
                 Ir al home
               </Link>
               <Link className="btn btn-outline-dark" to="/cart">

@@ -21,9 +21,6 @@ const InputCount= ()=> {
         </>
     )
 }
-
-
-
 const ButtonCount= ({handleInter})=> {
     return <>
             <div>
@@ -41,12 +38,11 @@ const ButtonCount= ({handleInter})=> {
     
 
 }
-
 const Intercambiabilidad = () => { 
 
     const [inputType, setInputType ] = useState('button')
 
-    const handleInter=()=>{ // onAdd
+    const handleInter=()=>{ 
         setInputType('input')
     }
     
